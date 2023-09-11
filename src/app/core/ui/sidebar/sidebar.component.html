@@ -1,0 +1,32 @@
+<section class="sidebar">
+    <div class="sidebar-content">
+      <div class="logo">Notas</div>
+
+        <div>
+            <fa-icon [icon]="faCalendarDays"></fa-icon>
+          Calendar
+        </div>
+
+      <span>
+          <fa-icon [icon]="faFolderOpen"></fa-icon>
+          Folders
+        </span>
+
+        <div *ngFor = "let folder of folders; index as i">
+
+          <button (click) = "toogleFolder(i)">
+            {{folder.name}} <fa-icon [icon]="faAngleUp"></fa-icon>
+          </button>
+
+          <div *ngIf = "foldersVisible[i]">
+              <div *ngFor="let note of folder.notes">
+                  <button (click) = "redirectToPage(note.id)">{{note.title}}</button>
+              </div>
+          </div>
+
+        </div>
+
+
+
+    </div>
+</section>

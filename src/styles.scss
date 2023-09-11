@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+  margin: 0 auto;
+  background-color: #111;
+  overflow-x: hidden;
+  color: aliceblue;
+
+}
+
+body, input, textarea, button {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+}
+
