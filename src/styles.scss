@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 body{
   margin: 0 auto;
-  background-color: #111;
+  background-color: #32363b;
   overflow-x: hidden;
   color: aliceblue;
 
@@ -12,3 +12,61 @@ body, input, textarea, button {
   font-size: 14px;
 }
 
+.dark .ce-block--selected .ce-block__content,
+.dark .ce-inline-toolbar,
+.dark .codex-editor--narrow .ce-toolbox,
+.dark .ce-conversion-toolbar,
+.dark .ce-settings,
+.dark .ce-settings__button,
+.dark .ce-toolbar__settings-btn,
+.dark .cdx-button,
+.dark .ce-popover,
+.dark .ce-toolbar__plus:hover {
+  background-color: black;
+  color: aliceblue;
+  color: red;
+	border-color: gray;
+}
+
+.dark .ce-inline-tool,
+.dark .ce-conversion-toolbar__label,
+.dark .ce-toolbox__button,
+.dark .cdx-settings-button,
+.dark .ce-toolbar__plus {
+  color: aliceblue;
+}
+
+.dark .ce-popover__item-icon,
+.dark .ce-conversion-tool__icon {
+	background-color: theme('colors.muted.DEFAULT');
+	box-shadow: none;
+}
+
+.dark .cdx-search-field {
+	border-color: gray;
+	background: theme('colors.input');
+	color: aliceblue;
+}
+
+.dark ::selection {
+  background: theme('colors.accent.DEFAULT');
+}
+
+
+
+.ce-toolbar__plus,.ce-toolbar__settings-btn{
+  color: aliceblue;
+
+  &:hover{
+    color:#111;
+  }
+
+}
+
+.ce-inline-tool{
+  color: #111;
+}
+
+.ce-inline-tool--active{
+  color: purple;
+}
