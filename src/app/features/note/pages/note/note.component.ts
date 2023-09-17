@@ -48,10 +48,13 @@ export class NoteComponent implements OnInit{
     this.noteTitle = "Untitled";
     this.editor  = new EditorJS({
       holder: 'editorjs',
-      placeholder: "Type here to write your post...",
+      placeholder: "Type here to write your note...",
       tools:{
         header:Header
       },
+      data:{
+        blocks:[{type:'paragraph',data:{}}]
+      }
     });
 
     this.editor.isReady.then(()=>{
@@ -64,13 +67,7 @@ export class NoteComponent implements OnInit{
 
   saveData()
   {
-    setInterval(()=>{
-      this.editor.save().then((outputData) => {
-        console.log('Article data: ', outputData)
-      }).catch((error) => {
-        console.log('Saving failed: ', error)
-      });
-    },10000);
+
   }
 
 

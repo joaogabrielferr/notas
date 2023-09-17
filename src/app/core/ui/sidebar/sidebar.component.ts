@@ -1,10 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
-import { faCalendarDays } from '@fortawesome/free-regular-svg-icons';
-import { faFolderOpen } from '@fortawesome/free-regular-svg-icons';
+import { faAngleRight,faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarDays,faFolderOpen,faFolderClosed, faPlusSquare} from '@fortawesome/free-regular-svg-icons';
 import {Router} from '@angular/router';
+import { Folder } from '../../types/Folder';
+import { Store, select } from '@ngrx/store';
+import { v4 } from 'uuid';
+import { Observable } from 'rxjs';
+import { selectAllFolders } from 'src/app/features/folders/folders.selectors';
+import { addFolder } from 'src/app/features/folders/state/folders.actions';
 
 
 @Component({
@@ -14,64 +19,48 @@ import {Router} from '@angular/router';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
 
-  faAngleUp = faAngleUp;
-  faCalendarDays = faCalendarDays;
-  faFolderOpen = faFolderOpen;
+  icons = {
+    faAngleRight,
+    faAngleDown,
+    faCalendarDays,
+    faFolderOpen,
+    faFolderClosed,
+    faPlusSquare
+  }
 
-  constructor(private router : Router){}
 
-  folders : any = [
-    {
-      name:'notes',
-      id:1,
-      notes:[
-       {
-        title:'plan trip',
-        id:3,
-        folder_id:1
-       },
-       {
-        title:'oop',
-        id:4,
-        folder_id:1
-       },
-       {
-        title:'docker',
-        id:5,
-        folder_id:1
-       }
+  public folders$! : Observable<Folder[]>
 
-      ]
-    },{
-      name:'books',
-      id:2,
-      notes:[
-        {
-          title:'the lord of the rings',
-          id:6,
-          folder_id:2
-        },
-        {
-          title:'1984',
-          id:7,
-          folder_id:2
-        }
-      ]
-    }
-  ]
+  protected foldersVisible! : boolean[];
 
-  foldersVisible : boolean[] = new Array(10).fill(false);
+  constructor(private router : Router,private store : Store){}
+
+  ngOnInit()
+  {
+
+    this.folders$ = this.store.select(selectAllFolders);
+
+    this.folders$.subscribe((folders)=>this.foldersVisible = new Array(folders.length).fill(false));
+
+  }
 
   toogleFolder(index : number)
   {
     this.foldersVisible[index] = !this.foldersVisible[index];
   }
 
-  redirectToPage(itemID:number)
+  redirectToPage(itemID:string)
   {
     this.router.navigate(['/note',itemID]);
   }
+
+  createFolder()
+  {
+    this.store.dispatch(addFolder({folder: {id : v4(),name:'Untitled',notes:[]} as Folder}))
+  }
+
+
 
 }

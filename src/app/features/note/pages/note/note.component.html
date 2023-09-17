@@ -2,11 +2,11 @@
   <div class="header">
     <fa-icon [icon]="faBars"></fa-icon>
     <h1>HEADER</h1></div>
+    {{id}}
   <div class="teste-content">
     <div class="text">
       <div class = "text-area">
-        <textarea  type="text" [(ngModel)] = "noteTitle" class = "note-title" rows = "2" autofocus >
-          </textarea >
+        <input  type="text" [(ngModel)] = "noteTitle" class = "note-title" autofocus />
         <div id="editorjs"></div>
         <div class = "advice-text">Press <kbd>Tab</kbd> to open the command menu</div>
 

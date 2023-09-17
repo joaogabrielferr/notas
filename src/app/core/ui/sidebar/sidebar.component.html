@@ -1,26 +1,43 @@
 <section class="sidebar">
     <div class="sidebar-content">
-      <div class="logo">Notas</div>
+      <div class="logo">
+        Notas
+      </div>
 
-        <div>
-            <fa-icon [icon]="faCalendarDays"></fa-icon>
+        <!-- <div>
+            <fa-icon [icon]="icons.faCalendarDays"></fa-icon>
           Calendar
-        </div>
+        </div> -->
 
-      <span>
-          <fa-icon [icon]="faFolderOpen"></fa-icon>
+      <div>
+        <span>
           Folders
         </span>
+        <fa-icon  [icon]="icons.faPlusSquare" (click) = "createFolder()"></fa-icon>
+        </div>
 
-        <div *ngFor = "let folder of folders; index as i">
+        <div *ngFor = "let folder of folders$ | async; index as i">
 
-          <button (click) = "toogleFolder(i)">
-            {{folder.name}} <fa-icon [icon]="faAngleUp"></fa-icon>
+          <button class = "btn-sidebar-transparent" (click) = "toogleFolder(i)">
+            <span>
+              <span *ngIf = "foldersVisible[i]">
+                <fa-icon  [icon]="icons.faAngleDown"></fa-icon>
+                <fa-icon [icon]="icons.faFolderOpen"></fa-icon>
+              </span>
+              <span *ngIf = "!foldersVisible[i]">
+                <fa-icon  [icon]="icons.faAngleRight"></fa-icon>
+                <fa-icon *ngIf = "!foldersVisible[i]" [icon]="icons.faFolderClosed"></fa-icon>
+              </span>
+                {{folder.name}}
+              </span>
+              <span>
+                {{folder.notes.length}}
+              </span>
           </button>
 
           <div *ngIf = "foldersVisible[i]">
               <div *ngFor="let note of folder.notes">
-                  <button (click) = "redirectToPage(note.id)">{{note.title}}</button>
+                  <button class = "btn-note" (click) = "redirectToPage(note.id)">{{note.title}}</button>
               </div>
           </div>
 
