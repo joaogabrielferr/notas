@@ -32,3 +32,11 @@ $main-color:#2E5093;
 .ce-inline-tool--active{
   color: purple;
 }
+
+.ce-inline-toolbar__dropdown,.ce-conversion-tool{
+  color: #111;
+}
+
+.ce-paragraph::selection{
+  color: $main-color;
+}
