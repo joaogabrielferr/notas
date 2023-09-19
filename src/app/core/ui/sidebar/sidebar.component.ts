@@ -8,14 +8,15 @@ import { Folder } from '../../types/Folder';
 import { Store, select } from '@ngrx/store';
 import { v4 } from 'uuid';
 import { Observable } from 'rxjs';
-import { selectAllFolders } from 'src/app/features/folders/folders.selectors';
+import { selectAllFolders } from 'src/app/features/folders/state/folders.selectors';
 import { addFolder } from 'src/app/features/folders/state/folders.actions';
+import { AddFolderModalComponent } from '../add-folder-modal/add-folder-modal.component';
 
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule,FontAwesomeModule],
+  imports: [CommonModule,FontAwesomeModule,AddFolderModalComponent],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
@@ -31,9 +32,11 @@ export class SidebarComponent implements OnInit {
   }
 
 
-  public folders$! : Observable<Folder[]>
+  folders$! : Observable<Folder[]>
 
-  protected foldersVisible! : boolean[];
+  foldersVisible! : boolean[];
+
+  isAddFolderModalOpen : boolean = false;
 
   constructor(private router : Router,private store : Store){}
 
@@ -42,7 +45,7 @@ export class SidebarComponent implements OnInit {
 
     this.folders$ = this.store.select(selectAllFolders);
 
-    this.folders$.subscribe((folders)=>this.foldersVisible = new Array(folders.length).fill(false));
+    this.folders$.subscribe((folders)=>this.foldersVisible = new Array(folders.length).fill(true));
 
   }
 
@@ -51,16 +54,22 @@ export class SidebarComponent implements OnInit {
     this.foldersVisible[index] = !this.foldersVisible[index];
   }
 
-  redirectToPage(itemID:string)
+  redirectToPage(prefix : string,itemID:string)
   {
-    this.router.navigate(['/note',itemID]);
+    this.router.navigate([prefix,itemID]);
   }
 
-  createFolder()
+  createFolder(name : string)
   {
-    this.store.dispatch(addFolder({folder: {id : v4(),name:'Untitled',notes:[]} as Folder}))
+    if(name.trim() == '')name = "Untitled";
+    this.store.dispatch(addFolder({folder: {id : v4(),name:name,notes:[]} as Folder}));
+    this.toogleAddFolderModal();
   }
 
+  toogleAddFolderModal()
+  {
+    this.isAddFolderModalOpen = !this.isAddFolderModalOpen;
+  }
 
 
 }

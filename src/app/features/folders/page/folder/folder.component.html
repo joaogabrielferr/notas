@@ -1,0 +1,14 @@
+<section>
+  <div *ngIf = "folder$ | async as folder">
+    {{folder.id}}
+  </div>
+  <button (click) = "createNote()">create note</button>
+  <div *ngIf = "folder$ | async as folder">
+    {{folder.name}}
+
+    <div *ngFor = "let note of folder.notes">
+      <h3>{{note.title}}</h3>
+    </div>
+
+  </div>
+</section>

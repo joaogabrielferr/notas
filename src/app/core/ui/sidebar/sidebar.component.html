@@ -1,49 +1,56 @@
 <section class="sidebar">
     <div class="sidebar-content">
       <div class="logo">
+        <!-- icon by twimoji
+        Copyright 2020 Twitter, Inc and other contributors
+        Code licensed under the MIT License: http://opensource.org/licenses/MIT
+        Graphics licensed under CC-BY 4.0: https://creativecommons.org/licenses/by/4.0/ -->
+        <svg width="24px" height="24px" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+          aria-hidden="true" role="img" class="iconify iconify--twemoji" preserveAspectRatio="xMidYMid meet">
+          <path fill="#269" d="M32 7H4a4 4 0 0 0-4 4v15a4 4 0 0 0 4 4h11.416c.52.596 1.477 1 2.584 1s2.065-.404 2.584-1H32a4 4 0 0 0 4-4V11a4 4 0 0 0-4-4z">
+          </path><path fill="#292F33" d="M20 27a2 2 0 0 1-4 0V9a2 2 0 0 1 4 0v18z"></path>
+          <path fill="#99AAB5" d="M18 26a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v18z">
+          </path><path fill="#E1E8ED" d="M18 26c-.999-1.998-3.657-2-4-2c-2 0-5 2-8 2c-1 0-2-.896-2-2V8c0-1.104 1-2 2-2c3.255 0 6-2 8-2c3 0 4 1.896 4 3v19z">
+          </path><path fill="#99AAB5" d="M34 26a2 2 0 0 1-2 2H20a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v18z">
+          </path><path fill="#CCD6DD" d="M18 26c.999-1.998 3.657-2 4-2c2 0 5 2 8 2c1 0 2-.896 2-2V8c0-1.104-1-2-2-2c-3.256 0-6-2-8-2c-3 0-4 1.896-4 3v19z"></path>
+      </svg>
+        &nbsp;
         Notas
       </div>
 
-        <!-- <div>
-            <fa-icon [icon]="icons.faCalendarDays"></fa-icon>
-          Calendar
-        </div> -->
 
-      <div>
+        <div>
+        </div>
+      <div class = "section-title">
         <span>
           Folders
         </span>
-        <fa-icon  [icon]="icons.faPlusSquare" (click) = "createFolder()"></fa-icon>
+        <button class = "btn-icon" (click) = "toogleAddFolderModal()">
+          <fa-icon  [icon]="icons.faPlusSquare"></fa-icon> New Folder
+        </button>
         </div>
 
-        <div *ngFor = "let folder of folders$ | async; index as i">
+        <div *ngFor = "let folder of folders$ | async; index as i" class = "sidebar-folders" (click) = "redirectToPage('/folder',folder.id)">
 
-          <button class = "btn-sidebar-transparent" (click) = "toogleFolder(i)">
-            <span>
-              <span *ngIf = "foldersVisible[i]">
-                <fa-icon  [icon]="icons.faAngleDown"></fa-icon>
-                <fa-icon [icon]="icons.faFolderOpen"></fa-icon>
-              </span>
-              <span *ngIf = "!foldersVisible[i]">
+          <button class = "btn-sidebar-transparent">
+              <span class = "btn-sidebar-transparent-text">
                 <fa-icon  [icon]="icons.faAngleRight"></fa-icon>
-                <fa-icon *ngIf = "!foldersVisible[i]" [icon]="icons.faFolderClosed"></fa-icon>
-              </span>
+                <fa-icon [icon]="icons.faFolderOpen"></fa-icon>
                 {{folder.name}}
               </span>
-              <span>
+              <span class = "btn-sidebar-folder-count">
                 {{folder.notes.length}}
               </span>
           </button>
-
-          <div *ngIf = "foldersVisible[i]">
-              <div *ngFor="let note of folder.notes">
-                  <button class = "btn-note" (click) = "redirectToPage(note.id)">{{note.title}}</button>
-              </div>
-          </div>
-
         </div>
 
 
 
     </div>
 </section>
+
+<app-add-folder-modal *ngIf = "isAddFolderModalOpen"
+(close)="toogleAddFolderModal()"
+(confirm)="createFolder($event)"
+>
+</app-add-folder-modal>

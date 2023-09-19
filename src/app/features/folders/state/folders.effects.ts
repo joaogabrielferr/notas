@@ -4,8 +4,8 @@ import { Store } from "@ngrx/store";
 import { AppState } from "src/app/app.state";
 import { LocalStorageService, LocalStorageState } from "src/app/core/services/local-storage.service";
 import { catchError, from, map, mergeMap, of, switchMap, tap, withLatestFrom } from "rxjs";
-import { addFolder, deleteFolder, loadFolders, loadFoldersFailure, loadFoldersSuccess } from "./folders.actions";
-import { selectAllFolders } from "../folders.selectors";
+import { addFolder, addNote, deleteFolder, loadFolders, loadFoldersFailure, loadFoldersSuccess } from "./folders.actions";
+import { selectAllFolders } from "./folders.selectors";
 import { Folder } from "src/app/core/types/Folder";
 
 
@@ -42,6 +42,14 @@ export class FoldersEffects{
       ).pipe(tap(()=>console.log("in saveFolder$ effect"))),
       {dispatch:false}
     );
+
+    saveNote$ = createEffect(()=>
+    this.actions$.pipe(
+      ofType(addNote),
+      mergeMap(({note}) => this.localStorageService.saveNote(note)),
+    ).pipe(tap((value)=>console.log("in saveNote$ effect ",value))),
+    {dispatch:false}
+  );
 
 
 }

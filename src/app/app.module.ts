@@ -12,6 +12,7 @@ import { NoteEffects } from './features/note/state/note.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { foldersReducer } from './features/folders/state/folders.reducer';
 import { FoldersEffects } from './features/folders/state/folders.effects';
+import { noteReducer } from './features/note/state/note.reducer';
 
 @NgModule({
   declarations: [

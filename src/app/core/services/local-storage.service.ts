@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Note } from "../types/Note";
 import { Folder } from "../types/Folder";
 import { Observable, firstValueFrom, of } from "rxjs";
-import { FoldersState, initialFolderState } from "src/app/features/note/state/note.reducer";
+
 
 
 export interface LocalStorageState{
@@ -32,6 +32,21 @@ export class LocalStorageService{
     const newState = {...state};
     newState.folders = folders;
     console.log("saving:",newState);
+    this.saveState(newState);
+  }
+
+  async saveNote(note : Note)
+  {
+    const state : LocalStorageState = await firstValueFrom(this.getState());
+    const newState = {...state};
+    const folderIndex = newState.folders.findIndex((f)=>f.id === note.folder_id);
+
+    const folder = {...newState.folders[folderIndex]};
+
+    folder.notes = [...folder.notes,note];
+
+    newState.folders[folderIndex] = folder;
+
     this.saveState(newState);
   }
 

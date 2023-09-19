@@ -1,0 +1,14 @@
+  <section class="modal-window">
+    <div class = "modal-content">
+      <header>
+        <button (click) = "toggleClose()" class = "close-button">X</button>
+      </header>
+      <section class="modal-body">
+        <h2>Add folder</h2>
+        <input #folderNameInput type="text" placeholder="type the name of the folder" autofocus/>
+      </section>
+      <footer>
+        <button (click) = "_confirm()" class = "confirm-button">Confirm</button>
+      </footer>
+    </div>
+  </section>
