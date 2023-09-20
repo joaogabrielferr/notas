@@ -36,13 +36,15 @@ export class EditorComponent implements OnInit{
 
   editor! : EditorJS;
 
-  noteTitle : string = "";
+  noteTitle : string = "Untitled Note";
 
   note$! : Observable<Note>;
 
   note! : Note;
 
   id! : string | null;
+
+  editorInitialized : boolean = false;
 
   constructor(private store : Store, private route : ActivatedRoute){
     this.route.paramMap.subscribe((params)=>{
@@ -61,20 +63,28 @@ export class EditorComponent implements OnInit{
   }
 
   ngOnInit(): void {
-      this.note$.subscribe((note)=>{
-        this.note = note;
-        this.noteTitle = note.title;
-        console.log("TITLE:",note.title);
+
+    this.note$.subscribe((note)=>{
+      this.note = note;
+      this.noteTitle = note.title;
+      console.log("TITLE:",note.title);
+
+      if(!this.editorInitialized)
+      {
         this.initializeEditor();
-        });
+      }
+
+      });
+
 
   }
 
 
   initializeEditor()
   {
+    this.editorInitialized = true;
     const self = this;
-    this.noteTitle = "Untitled note";
+    // this.noteTitle = "Untitled note";
     this.editor  = new EditorJS({
       holder: 'editorjs',
       placeholder: "Type here to write your note...",
