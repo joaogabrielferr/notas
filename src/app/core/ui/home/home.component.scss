@@ -12,8 +12,10 @@
   .content{
     width: 100%;
     height: 100vh;
-    // margin-right: 20px;
-    overflow-y: hidden;
+    margin: 8px;
+    border-radius: 7px;
+    border: 1px solid #505152;
+    background-color: #212325;
 
 
     @media screen and (max-width:768px) {

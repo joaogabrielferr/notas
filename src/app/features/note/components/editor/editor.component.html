@@ -1,7 +1,7 @@
 <div class="teste-content">
   <div class="text">
     <div class = "text-area">
-      <input  type="text" [(ngModel)] = "noteTitle" class = "note-title" autofocus />
+      <input  type="text" [(ngModel)] = "noteTitle" class = "note-title" autofocus (ngModelChange)="updateTitle($event)"/>
       <div id="editorjs"></div>
       <div class = "advice-text">Press <kbd>Tab</kbd> to open the command menu</div>
 

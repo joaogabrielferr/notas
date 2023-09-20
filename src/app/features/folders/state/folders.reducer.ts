@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { Folder } from "src/app/core/types/Folder";
-import { addFolder, deleteFolder, loadFolders, loadFoldersSuccess, loadFoldersFailure, addNote } from "./folders.actions";
+import { addFolder, deleteFolder, loadFolders, loadFoldersSuccess, loadFoldersFailure, addNote, updateNote } from "./folders.actions";
 import { cloneDeep } from "lodash";
 
 type Status = 'pending' | 'loading' | 'error' | 'success';
@@ -22,7 +22,6 @@ export const initialFolderState : FoldersState = {
 export const foldersReducer = createReducer(
   initialFolderState,
   on(addFolder,(state,{folder}) =>{
-    console.log("aqui addFolder");
     return ({
     ...state,
     folders: [...state.folders,folder].sort((a : Folder,b:Folder)=> a.name.localeCompare(b.name))
@@ -43,7 +42,6 @@ export const foldersReducer = createReducer(
   })),
   on(addNote,(state,{note}) =>{
 
-
     const newState = cloneDeep(state);
 
     const folderIndex = newState.folders.findIndex((f)=>f.id === note.folder_id);
@@ -53,6 +51,22 @@ export const foldersReducer = createReducer(
     newState.folders[folderIndex].notes = [...newState.folders[folderIndex].notes,note];
 
     return newState;
+
+  }),
+
+  on(updateNote,(state,{note}) =>{
+
+      const newState = cloneDeep(state);
+
+      const folderIndex = newState.folders.findIndex((f)=>f.id === note.folder_id);
+
+      if(folderIndex === -1)return newState;
+
+      const noteIndex = newState.folders[folderIndex].notes.findIndex((n)=>n.id === note.id);
+
+      newState.folders[folderIndex].notes[noteIndex] = note;
+
+      return newState;
 
   })
 

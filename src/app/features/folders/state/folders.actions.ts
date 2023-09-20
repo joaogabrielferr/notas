@@ -20,3 +20,5 @@ export const loadFoldersFailure = createAction('Load Folders Failure',props<{err
 
 export const addNote = createAction("Add Note",props<{note : Note}>());
 
+export const updateNote = createAction("Update Note",props<{note : Note}>());
+

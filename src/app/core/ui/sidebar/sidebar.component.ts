@@ -62,7 +62,7 @@ export class SidebarComponent implements OnInit {
   createFolder(name : string)
   {
     if(name.trim() == '')name = "Untitled";
-    this.store.dispatch(addFolder({folder: {id : v4(),name:name,notes:[]} as Folder}));
+    this.store.dispatch(addFolder({folder: {id : v4(),name:name,notes:[],created_at:new Date()} as Folder}));
     this.toogleAddFolderModal();
   }
 

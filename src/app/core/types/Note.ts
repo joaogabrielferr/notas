@@ -4,11 +4,12 @@ export type Note = {
   title:string;
   content: EditorResponse;
   folder_id:string;
+  created_at: Date;
 
 };
 
 
-type EditorResponse = {
+export type EditorResponse = {
 
   time: number;
   blocks: EditorBlock[],

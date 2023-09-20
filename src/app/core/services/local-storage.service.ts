@@ -50,6 +50,20 @@ export class LocalStorageService{
     this.saveState(newState);
   }
 
+  async updateNote(note : Note)
+  {
+    const state : LocalStorageState = await firstValueFrom(this.getState());
+    const newState = {...state};
+
+    const folderIndex = newState.folders.findIndex((f)=>f.id === note.folder_id);
+
+    const noteIndex = newState.folders[folderIndex].notes.findIndex((n)=>n.id === note.id);
+
+    newState.folders[folderIndex].notes[noteIndex] = note;
+    console.log(newState);
+    this.saveState(newState);
+  }
+
 
   getState() : Observable<LocalStorageState>
   {

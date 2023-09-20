@@ -1,0 +1,31 @@
+<section class="list-notes">
+
+  <div class="list-notes-inner">
+
+    <div class="note-item" *ngFor = "let note of notes">
+      <div class="note-item-content">
+        <div class="note-item-header">
+          <span>{{note.title}}</span>
+        </div>
+        <div class="note-item-body">
+          <!-- {{textMap.get(note.id)}} -->
+          <div [innerHTML] = "textMap.get(note.id)"></div>
+        </div>
+
+        <div class="note-item-footer">
+          <div class="note-item-footer-row">
+            <button class="btn-edit-note" (click) = "navigateToNote(note.id)">
+              Edit note
+            </button>
+          </div>
+          <div class="note-item-footer-row">
+            <fa-icon  [icon]="icons.faTrashCan"></fa-icon>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>

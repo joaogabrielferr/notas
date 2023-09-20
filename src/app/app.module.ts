@@ -8,11 +8,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { NoteEffects } from './features/note/state/note.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { foldersReducer } from './features/folders/state/folders.reducer';
 import { FoldersEffects } from './features/folders/state/folders.effects';
-import { noteReducer } from './features/note/state/note.reducer';
 
 @NgModule({
   declarations: [
@@ -24,7 +22,7 @@ import { noteReducer } from './features/note/state/note.reducer';
     FontAwesomeModule,
     BrowserAnimationsModule,
     StoreModule.forRoot({folders : foldersReducer}),
-    EffectsModule.forRoot([NoteEffects,FoldersEffects]),
+    EffectsModule.forRoot([FoldersEffects]),
     StoreDevtoolsModule.instrument({
       maxAge:25,
       logOnly:false,

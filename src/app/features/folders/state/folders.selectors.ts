@@ -8,3 +8,10 @@ const foldersFeature = createFeatureSelector<FoldersState>('folders');
 export const selectAllFolders = createSelector(foldersFeature,(state : FoldersState) => state.folders);
 
 export const selectFolderById = (folderId : string) => createSelector(foldersFeature,(state : FoldersState) => state.folders.find((f)=>f.id === folderId)!);
+
+export const selectNoteById = (noteId : string) => createSelector(foldersFeature,(state : FoldersState) => {
+
+   const folder = state.folders.find((f) => f.notes.find((n)=> n.id === noteId))!;
+   return folder.notes.find((n)=>n.id === noteId)!;
+
+})
