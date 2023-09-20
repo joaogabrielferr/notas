@@ -20,7 +20,7 @@ import { Store } from "@ngrx/store";
 import { EditorResponse, Note } from "src/app/core/types/Note";
 import { Observable, firstValueFrom, fromEvent } from "rxjs";
 import { selectFolderById, selectNoteById } from "src/app/features/folders/state/folders.selectors";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { updateNote } from "src/app/features/folders/state/folders.actions";
 import { debounce } from "lodash";
 
@@ -46,12 +46,17 @@ export class EditorComponent implements OnInit{
 
   editorInitialized : boolean = false;
 
-  constructor(private store : Store, private route : ActivatedRoute){
+  constructor(
+    private store : Store,
+     private route : ActivatedRoute,
+     private router : Router
+     ){
     this.route.paramMap.subscribe((params)=>{
       this.id = params.get('id');
       if(!this.id)
       {
         //redirect to 404
+        this.router.navigate(["/404"]);
         return;
       }
 

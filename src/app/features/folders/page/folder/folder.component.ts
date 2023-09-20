@@ -21,8 +21,10 @@ import { ListNotesComponent } from 'src/app/shared/components/list-notes/list-no
 export class FolderComponent implements OnInit{
 
   public folder$! : Observable<Folder>;
-
+  public folder! : Folder;
   id! : string | null;
+
+  notes : Note[] = [];
 
 
   constructor(
@@ -40,10 +42,23 @@ export class FolderComponent implements OnInit{
       if(!this.id)
       {
         //redirect to 404 page
+        this.router.navigate(["/404"]);
         return;
       }
-      console.log("aqui ",this.id);
       this.folder$ = this.store.select(selectFolderById(this.id));
+      this.folder$.subscribe((folder)=>
+      {
+        if(!folder)
+        {
+          this.router.navigate(["/404"]);
+          return;
+        }
+        this.folder = folder;
+        this.notes = folder.notes;
+      },(err)=>{
+        this.router.navigate(["/404"]);
+      }
+      );
 
     });
 

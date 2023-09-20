@@ -1,10 +1,7 @@
 <section class="folder-page">
-  <div *ngIf = "folder$ | async as folder">
-    {{folder.id}}
-  </div>
+
   <button (click) = "createNote()">create note</button>
-  <div *ngIf = "folder$ | async as folder" class = "folders-list">
-    {{folder.name}}
-    <app-list-notes [notes] = "folder.notes"></app-list-notes>
+  <div class = "folders-list">
+    <app-list-notes [notes] = "notes"></app-list-notes>
   </div>
 </section>

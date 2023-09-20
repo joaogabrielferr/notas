@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Note } from 'src/app/core/types/Note';
 import { Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faTrashCan} from '@fortawesome/free-regular-svg-icons';
+import { faTrashCan,faFolderOpen} from '@fortawesome/free-regular-svg-icons';
+import { faThumbTack } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -11,16 +12,20 @@ import { faTrashCan} from '@fortawesome/free-regular-svg-icons';
   standalone: true,
   imports: [CommonModule,FontAwesomeModule],
   templateUrl: './list-notes.component.html',
-  styleUrls: ['./list-notes.component.scss']
+  styleUrls: ['./list-notes.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
-export class ListNotesComponent implements OnInit {
+export class ListNotesComponent implements OnInit ,OnChanges {
 
   @Input() notes! : Note[];
 
   textMap = new Map<string,string>();
 
   icons = {
-    faTrashCan
+    faTrashCan,
+    faThumbTack,
+    faFolderOpen
   }
 
   constructor(private router : Router){}
@@ -28,6 +33,14 @@ export class ListNotesComponent implements OnInit {
 
   ngOnInit(): void {
       this.generateTexts();
+  }
+
+  ngOnChanges( changes : SimpleChanges)
+  {
+    if(changes['notes'])
+    {
+      this.generateTexts();
+    }
   }
 
 
