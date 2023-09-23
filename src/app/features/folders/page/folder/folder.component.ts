@@ -12,12 +12,11 @@ import { Actions, ofType } from '@ngrx/effects';
 import { ListNotesComponent } from 'src/app/shared/components/list-notes/list-notes.component';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { HeaderComponent } from 'src/app/shared/components/header/header.component';
 
 @Component({
   selector: 'app-folder',
   standalone: true,
-  imports: [CommonModule,ListNotesComponent,FontAwesomeModule,HeaderComponent],
+  imports: [CommonModule,ListNotesComponent,FontAwesomeModule],
   templateUrl: './folder.component.html',
   styleUrls: ['./folder.component.scss'],
 })
