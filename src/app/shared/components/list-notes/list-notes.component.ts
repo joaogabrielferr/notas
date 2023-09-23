@@ -5,12 +5,15 @@ import { Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTrashCan,faFolderOpen} from '@fortawesome/free-regular-svg-icons';
 import { faThumbTack } from '@fortawesome/free-solid-svg-icons';
+import { ConfirmationModalComponent } from 'src/app/core/ui/confirmation-modal/confirmation-modal.component';
+import { Store } from '@ngrx/store';
+import { deleteNote } from 'src/app/features/folders/state/folders.actions';
 
 
 @Component({
   selector: 'app-list-notes',
   standalone: true,
-  imports: [CommonModule,FontAwesomeModule],
+  imports: [CommonModule,FontAwesomeModule,ConfirmationModalComponent],
   templateUrl: './list-notes.component.html',
   styleUrls: ['./list-notes.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -28,7 +31,11 @@ export class ListNotesComponent implements OnInit ,OnChanges {
     faFolderOpen
   }
 
-  constructor(private router : Router){}
+  selectedNote : Note | null = null;
+
+  isDeleteNoteModalOpen : boolean = false;
+
+  constructor(private router : Router,private store : Store){}
 
 
   ngOnInit(): void {
@@ -76,6 +83,24 @@ export class ListNotesComponent implements OnInit ,OnChanges {
   navigateToNote(noteId : string)
   {
     this.router.navigate(["/note",noteId]);
+  }
+
+  toogleDeleteNoteModal()
+  {
+    this.isDeleteNoteModalOpen = !this.isDeleteNoteModalOpen;
+  }
+
+  openDeleteNoteModal(note : Note)
+  {
+    this.selectedNote = note;
+    this.toogleDeleteNoteModal();
+  }
+
+  deleteNote()
+  {
+    this.store.dispatch(deleteNote({note : this.selectedNote!}));
+    this.selectedNote = null;
+    this.toogleDeleteNoteModal();
   }
 
 

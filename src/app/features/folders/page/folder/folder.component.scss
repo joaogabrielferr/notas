@@ -17,6 +17,13 @@
       text-overflow: ellipsis;
     }
 
+    .page-header-button{
+      button{
+        height: 100%;
+        min-width: 150px;
+      }
+    }
+
   }
 
   @media screen and (max-width:900px) {
@@ -26,6 +33,14 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+
+      .page-header-button{
+        button{
+          height: 40px;
+        }
+      }
+
+
     }
 
 

@@ -1,7 +1,8 @@
 import { createReducer, on } from "@ngrx/store";
 import { Folder } from "src/app/core/types/Folder";
-import { addFolder, deleteFolder, loadFolders, loadFoldersSuccess, loadFoldersFailure, addNote, updateNote } from "./folders.actions";
+import { addFolder, deleteFolder, loadFolders, loadFoldersSuccess, loadFoldersFailure, addNote, updateNote, deleteNote } from "./folders.actions";
 import { cloneDeep } from "lodash";
+import { Note } from "src/app/core/types/Note";
 
 type Status = 'pending' | 'loading' | 'error' | 'success';
 
@@ -67,6 +68,20 @@ export const foldersReducer = createReducer(
       newState.folders[folderIndex].notes[noteIndex] = note;
 
       return newState;
+
+  }),
+
+  on(deleteNote,(state,{note}) =>{
+
+    const newState = cloneDeep(state);
+
+    const folderIndex = newState.folders.findIndex((f)=>f.id === note.folder_id);
+
+    if(folderIndex === -1)return newState;
+
+    newState.folders[folderIndex].notes = newState.folders[folderIndex].notes.filter((n)=>n.id != note.id);
+
+    return newState;
 
   })
 

@@ -16,11 +16,14 @@
               <button class="btn-edit-note" (click) = "navigateToNote(note.id)">
                 Edit note
               </button>
-            </div>
-            <div class="note-item-footer-row ">
-              <fa-icon  [icon]="icons.faThumbTack"></fa-icon>
-              &nbsp;&nbsp;
-              <fa-icon  [icon]="icons.faTrashCan"></fa-icon>
+              <div>
+                <button class = "btn-icon">
+                  <fa-icon  [icon]="icons.faThumbTack"></fa-icon>
+                </button>
+                <button class = "btn-icon" (click) = "openDeleteNoteModal(note)">
+                  <fa-icon  [icon]="icons.faTrashCan"></fa-icon>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -39,4 +42,13 @@
 
 
 </section>
+
+<app-confirmation-modal
+*ngIf = "isDeleteNoteModalOpen"
+[title]="'Delete note'"
+(close)="toogleDeleteNoteModal()"
+(confirm)="deleteNote()"
+>
+<p>Are you sure you want to delete this note?</p>
+</app-confirmation-modal>
 

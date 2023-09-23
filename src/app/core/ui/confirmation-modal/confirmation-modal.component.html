@@ -1,0 +1,14 @@
+<section class="modal-window">
+  <div class = "modal-content">
+    <header>
+      <button (click) = "toggleClose()" class = "close-button">X</button>
+    </header>
+    <section class="modal-body">
+      <h2>{{title}}</h2>
+      <ng-content></ng-content>
+    </section>
+    <footer>
+      <button (click) = "_confirm()" class = "confirm-button">Confirm</button>
+    </footer>
+  </div>
+</section>

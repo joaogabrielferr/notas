@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Note } from "../types/Note";
 import { Folder } from "../types/Folder";
 import { Observable, firstValueFrom, of } from "rxjs";
+import { cloneDeep } from "lodash";
 
 
 
@@ -29,7 +30,7 @@ export class LocalStorageService{
   async saveFolders(folders : Folder[])
   {
     const state : LocalStorageState = await firstValueFrom(this.getState());
-    const newState = {...state};
+    const newState = cloneDeep(state);
     newState.folders = folders;
     console.log("saving:",newState);
     this.saveState(newState);
@@ -38,7 +39,7 @@ export class LocalStorageService{
   async saveNote(note : Note)
   {
     const state : LocalStorageState = await firstValueFrom(this.getState());
-    const newState = {...state};
+    const newState = cloneDeep(state);
     const folderIndex = newState.folders.findIndex((f)=>f.id === note.folder_id);
 
     const folder = {...newState.folders[folderIndex]};
@@ -53,15 +54,29 @@ export class LocalStorageService{
   async updateNote(note : Note)
   {
     const state : LocalStorageState = await firstValueFrom(this.getState());
-    const newState = {...state};
+    const newState = cloneDeep(state);
 
     const folderIndex = newState.folders.findIndex((f)=>f.id === note.folder_id);
 
     const noteIndex = newState.folders[folderIndex].notes.findIndex((n)=>n.id === note.id);
 
     newState.folders[folderIndex].notes[noteIndex] = note;
-    console.log(newState);
+
     this.saveState(newState);
+  }
+
+  async deleteNote(note : Note)
+  {
+    const state : LocalStorageState = await firstValueFrom(this.getState());
+
+    const newState = cloneDeep(state);
+
+    const folderIndex = newState.folders.findIndex((f)=>f.id === note.folder_id);
+
+    newState.folders[folderIndex].notes = newState.folders[folderIndex].notes.filter((f)=>f.id != note.id);
+
+    this.saveState(newState);
+
   }
 
 
@@ -69,7 +84,6 @@ export class LocalStorageService{
   {
     const stateString = localStorage.getItem(`${this.key}`);
     const state : LocalStorageState = stateString ? JSON.parse(stateString) || {} as LocalStorageState : {} as LocalStorageState;
-    console.log("state:",state);
 
     if(!state.folders)
     {

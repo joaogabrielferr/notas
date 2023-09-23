@@ -22,3 +22,5 @@ export const addNote = createAction("Add Note",props<{note : Note}>());
 
 export const updateNote = createAction("Update Note",props<{note : Note}>());
 
+export const deleteNote = createAction("Delete Note",props<{note : Note}>());
+
