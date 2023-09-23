@@ -10,11 +10,14 @@ import { Note } from 'src/app/core/types/Note';
 import { v4 } from 'uuid';
 import { Actions, ofType } from '@ngrx/effects';
 import { ListNotesComponent } from 'src/app/shared/components/list-notes/list-notes.component';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HeaderComponent } from 'src/app/shared/components/header/header.component';
 
 @Component({
   selector: 'app-folder',
   standalone: true,
-  imports: [CommonModule,ListNotesComponent],
+  imports: [CommonModule,ListNotesComponent,FontAwesomeModule,HeaderComponent],
   templateUrl: './folder.component.html',
   styleUrls: ['./folder.component.scss'],
 })
@@ -26,6 +29,9 @@ export class FolderComponent implements OnInit{
 
   notes : Note[] = [];
 
+  icons = {
+    faPlus
+  }
 
   constructor(
     private route : ActivatedRoute,

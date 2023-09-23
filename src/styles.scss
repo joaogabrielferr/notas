@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 body{
   margin: 0 auto;
-  background-color: #212325;
+  background-color:  #242525;
   overflow-x: hidden;
   color: aliceblue;
 
@@ -13,7 +13,29 @@ body, input, textarea, button {
   color: aliceblue;
 }
 
-$main-color:#2E5093;
+$main-color:#154ec2;
+$main-color-hover:#1c4294;
+
+
+.btn-primary{
+
+  border-style: none;
+  border-radius: 5px;
+  background-color: $main-color;
+  // width: 60px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  font-weight: bold;
+
+
+
+  &:hover{
+    background-color: $main-color-hover;
+  }
+}
 
 
 

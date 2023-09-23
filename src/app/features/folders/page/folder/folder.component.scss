@@ -1,6 +1,34 @@
 .folder-page{
-  width: 100%;
+  width: 80%;
   height: 100%;
-  overflow-y: auto;
+  margin: 0 auto;
+  .page-header{
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .page-header-name{
+      width: 50%;
+      font-size: 50px;
+      font-weight: bold;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+  }
+
+  @media screen and (max-width:900px) {
+    width: 98%;
+    margin: 0 auto;
+    .page-header{
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+
+  }
 
 }

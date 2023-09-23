@@ -1,6 +1,18 @@
 <section class="folder-page">
+  <div class="page-header">
 
-  <button (click) = "createNote()">create note</button>
+    <div class="page-header-name">
+      {{folder.name}}
+    </div>
+
+
+    <div class="page-header-button">
+      <button (click) = "createNote()" class = "btn-primary">
+        <fa-icon [icon]="icons.faPlus"></fa-icon> &nbsp;
+        create note
+      </button>
+    </div>
+  </div>
   <div class = "folders-list">
     <app-list-notes [notes] = "notes"></app-list-notes>
   </div>
