@@ -7,6 +7,7 @@ import { catchError, from, map, mergeMap, of, switchMap, tap, withLatestFrom } f
 import { addFolder, addNote, deleteFolder, deleteNote, loadFolders, loadFoldersFailure, loadFoldersSuccess, updateNote } from "./folders.actions";
 import { selectAllFolders } from "./folders.selectors";
 import { Folder } from "src/app/core/types/Folder";
+import { create } from "lodash";
 
 
 @Injectable()
@@ -58,13 +59,22 @@ export class FoldersEffects{
         {dispatch:false}
   );
 
-  deleteNode$ = createEffect(
+  deleteNote$ = createEffect(
     ()=>
         this.actions$.pipe(
           ofType(deleteNote),
           mergeMap(({note})=> this.localStorageService.deleteNote(note))),
           {dispatch:false}
   );
+
+  deleteFolder$ = createEffect(
+    ()=>
+      this.actions$.pipe(
+        ofType(deleteFolder),
+        mergeMap(({id})=> this.localStorageService.deleteFolder(id))),
+        {dispatch:false}
+      );
+
 
 
 

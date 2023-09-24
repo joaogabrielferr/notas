@@ -11,9 +11,26 @@
         <fa-icon [icon]="icons.faPlus"></fa-icon> &nbsp;
         create note
       </button>
+
+      <button (click) = "toogleModalDeleteFolder()" class = "btn-secondary">
+        <fa-icon [icon]="icons.faTrashCan"></fa-icon> &nbsp;
+        Delete folder
+      </button>
     </div>
   </div>
   <div class = "folders-list">
     <app-list-notes [notes] = "notes"></app-list-notes>
   </div>
 </section>
+
+<app-confirmation-modal
+*ngIf = "isModalDeleteFolderOpen"
+[title]="'Delete folder'"
+(close)="toogleModalDeleteFolder()"
+(confirm)="deleteFolder()"
+>
+<p>Are you sure you want to delete this folder?</p>
+<p>
+  <strong>All notes inside this folder will also be deleted!</strong>
+</p>
+</app-confirmation-modal>

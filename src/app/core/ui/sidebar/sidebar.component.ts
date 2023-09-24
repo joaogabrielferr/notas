@@ -63,6 +63,7 @@ export class SidebarComponent implements OnInit {
   {
     if(name.trim() == '')name = "Untitled";
     const id = v4();
+
     this.store.dispatch(addFolder({folder: {id : id,name:name,notes:[],created_at:new Date()} as Folder}));
     this.toogleAddFolderModal();
     this.router.navigate(["/folder",id]);

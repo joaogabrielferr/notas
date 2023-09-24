@@ -79,6 +79,19 @@ export class LocalStorageService{
 
   }
 
+  async deleteFolder(id : string)
+  {
+    const state : LocalStorageState = await firstValueFrom(this.getState());
+
+    const newState = cloneDeep(state);
+
+    newState.folders = newState.folders.filter((f) => f.id != id);
+
+    this.saveState(newState);
+
+
+  }
+
 
   getState() : Observable<LocalStorageState>
   {

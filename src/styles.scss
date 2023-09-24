@@ -37,6 +37,26 @@ $main-color-hover:#1c4294;
   }
 }
 
+.btn-secondary{
+  border-style: none;
+  border-radius: 5px;
+  background-color: transparent;
+  // width: 60px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  font-weight: bold;
+  border: 1px solid $main-color;
+
+
+
+  &:hover{
+    background-color: $main-color;
+  }
+}
+
 
 
 .ce-toolbar__plus,.ce-toolbar__settings-btn{

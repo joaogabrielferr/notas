@@ -5,18 +5,19 @@ import { Folder } from 'src/app/core/types/Folder';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { selectFolderById } from '../../state/folders.selectors';
-import { addFolder, addNote } from '../../state/folders.actions';
+import { addFolder, addNote, deleteFolder } from '../../state/folders.actions';
 import { Note } from 'src/app/core/types/Note';
 import { v4 } from 'uuid';
 import { Actions, ofType } from '@ngrx/effects';
 import { ListNotesComponent } from 'src/app/shared/components/list-notes/list-notes.component';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus,faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ConfirmationModalComponent } from 'src/app/core/ui/confirmation-modal/confirmation-modal.component';
 
 @Component({
   selector: 'app-folder',
   standalone: true,
-  imports: [CommonModule,ListNotesComponent,FontAwesomeModule],
+  imports: [CommonModule,ListNotesComponent,FontAwesomeModule,ConfirmationModalComponent],
   templateUrl: './folder.component.html',
   styleUrls: ['./folder.component.scss'],
 })
@@ -28,8 +29,11 @@ export class FolderComponent implements OnInit{
 
   notes : Note[] = [];
 
+  isModalDeleteFolderOpen : boolean = false;
+
   icons = {
-    faPlus
+    faPlus,
+    faTrashCan
   }
 
   constructor(
@@ -76,4 +80,14 @@ export class FolderComponent implements OnInit{
     this.router.navigate(["/note",id]);
   }
 
+  toogleModalDeleteFolder()
+  {
+    this.isModalDeleteFolderOpen = !this.isModalDeleteFolderOpen;
+  }
+
+  deleteFolder()
+  {
+    this.store.dispatch(deleteFolder({id: this.folder.id}));
+    this.router.navigate(["/"]);
+  }
 }
