@@ -19,3 +19,15 @@
 
 
 }
+
+.page-not-found-content{
+  width: 80%;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  h1{
+    font-size: 100px;
+  }
+}

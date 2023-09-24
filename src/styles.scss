@@ -58,6 +58,66 @@ $main-color-hover:#1c4294;
 }
 
 
+.page{
+  width: 80%;
+  height: 100%;
+  margin: 0 auto;
+
+
+  @media screen and (max-width:900px) {
+    width: 98%;
+    margin: 0 auto;
+  }
+
+}
+
+.page-header{
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  .page-header-name{
+    width: 50%;
+    font-size: 50px;
+    font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .page-header-button{
+    display: flex;
+    width: 30%;
+    justify-content: flex-end;
+    button{
+      height: 80%;
+      min-width: 150px;
+      margin-left: 10px;
+    }
+  }
+
+
+  @media screen and (max-width:1200px) {
+
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .page-header-button{
+        width: 80%;
+        justify-content: center;
+        button{
+          height: 40px;
+        }
+      }
+
+
+  }
+
+
+}
+
 
 .ce-toolbar__plus,.ce-toolbar__settings-btn{
   color: aliceblue;
