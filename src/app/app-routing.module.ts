@@ -4,11 +4,18 @@ import { HomeComponent } from './core/ui/home/home.component';
 import { NoteComponent } from './features/note/pages/note/note.component';
 import { FolderComponent } from './features/folders/page/folder/folder.component';
 import { PageNotFoundComponent } from './shared/pages/page-not-found/page-not-found.component';
+import { DashboardComponent } from './features/dashboard/page/dashboard/dashboard.component';
 
 const routes: Routes = [
   {
     path:'',
-    component:HomeComponent
+    component:HomeComponent,
+    children:[
+      {
+        path:'',
+        component:DashboardComponent
+      }
+    ]
   },
   {
     path:'note/:id',

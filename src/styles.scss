@@ -104,6 +104,11 @@ $main-color-hover:#1c4294;
       justify-content: center;
       align-items: center;
 
+      .page-header-name{
+        width: 80%;
+        text-align: center;
+      }
+
       .page-header-button{
         width: 80%;
         justify-content: center;
@@ -113,6 +118,42 @@ $main-color-hover:#1c4294;
       }
 
 
+  }
+
+
+}
+
+.btn-sidebar-transparent{
+  font-size: 14px;
+  border-style: none;
+  background-color: transparent;
+  width: 100%;
+  height: 30px;
+  cursor: pointer;
+  text-align: left;
+  color: aliceblue;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  overflow: hidden;
+  white-space: nowrap;
+  display: block;
+  text-overflow: ellipsis;
+
+  &:hover{
+    background-color: rgb(97, 103, 109);
+  }
+
+  .btn-sidebar-transparent-text{
+    width: 80%;
+  }
+
+  .btn-sidebar-folder-count{
+    width: 20%;
+    display: flex;
+    justify-content: flex-end;
   }
 
 
