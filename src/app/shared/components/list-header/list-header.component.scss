@@ -1,0 +1,15 @@
+@import 'src/app/styles/_variables.scss';
+
+.list-header{
+  width: 100%;
+  height: 30px;
+  margin-top: 50px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+.selected{
+  background-color: $main-button-color;
+  border-radius: 2px;
+}

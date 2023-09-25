@@ -128,6 +128,15 @@ export class EditorComponent implements OnInit{
 
     newNote.title = this.noteTitle.trim() === "" ? "Untitled Note" : this.noteTitle;
 
+    if(!newNote.created_at)
+    {
+      newNote.created_at = new Date();
+    }else
+    {
+      newNote.last_updated = new Date();
+    }
+
+
     this.store.dispatch(updateNote({note : newNote}));
 
   }

@@ -5,6 +5,7 @@ export type Note = {
   content: EditorResponse;
   folder_id:string;
   created_at: Date;
+  last_updated : Date;
 
 };
 

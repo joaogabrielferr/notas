@@ -8,7 +8,7 @@ import { faThumbTack } from '@fortawesome/free-solid-svg-icons';
 import { ConfirmationModalComponent } from 'src/app/core/ui/confirmation-modal/confirmation-modal.component';
 import { Store } from '@ngrx/store';
 import { deleteNote } from 'src/app/features/folders/state/folders.actions';
-
+import { formatDate } from 'src/app/utils/formatDate';
 
 @Component({
   selector: 'app-list-notes',
@@ -21,9 +21,18 @@ import { deleteNote } from 'src/app/features/folders/state/folders.actions';
 })
 export class ListNotesComponent implements OnInit ,OnChanges {
 
-  @Input() notes! : Note[];
+  @Input()
+  notes! : Note[];
+
+  @Input()
+  showGridOption : boolean = false;
+
+  @Input()
+  view : 'table' | 'grid' = 'table';
 
   textMap = new Map<string,string>();
+
+  formatDate = formatDate;
 
   icons = {
     faTrashCan,
@@ -101,6 +110,12 @@ export class ListNotesComponent implements OnInit ,OnChanges {
     this.store.dispatch(deleteNote({note : this.selectedNote!}));
     this.selectedNote = null;
     this.toogleDeleteNoteModal();
+  }
+
+  _formatDate(date : Date)
+  {
+    console.log(date);
+    return formatDate(date);
   }
 
 

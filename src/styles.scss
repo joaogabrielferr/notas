@@ -29,6 +29,7 @@ $main-color-hover:#1c4294;
   justify-content: space-evenly;
   align-items: center;
   font-weight: bold;
+  transition: 0.3s;
 
 
 
@@ -49,6 +50,7 @@ $main-color-hover:#1c4294;
   align-items: center;
   font-weight: bold;
   border: 1px solid $main-color;
+  transition: 0.3s;
 
 
 
@@ -79,7 +81,7 @@ $main-color-hover:#1c4294;
 
   .page-header-name{
     width: 50%;
-    font-size: 50px;
+    font-size: 40px;
     font-weight: bold;
     overflow: hidden;
     white-space: nowrap;
@@ -157,6 +159,20 @@ $main-color-hover:#1c4294;
   }
 
 
+}
+
+.btn-icon{
+  border-style: none;
+  background-color: transparent;
+  color: aliceblue;
+  cursor: pointer;
+  transition: 0.1s;
+}
+
+.animated{
+  &:hover{
+    transform: translateY(-5px);
+  }
 }
 
 

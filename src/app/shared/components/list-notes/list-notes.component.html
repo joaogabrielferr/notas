@@ -1,41 +1,81 @@
 <section class="list-notes">
 
-  <div *ngIf = "notes.length > 0">
-  <div class="list-notes-inner">
-      <div class="note-item" *ngFor = "let note of notes">
-        <div class="note-item-content">
-          <div class="note-item-header">
-            <span>{{note.title}}</span>
-          </div>
-          <div class="note-item-body">
-            <div [innerHTML] = "textMap.get(note.id)"></div>
-          </div>
 
-          <div class="note-item-footer">
-            <div class="note-item-footer-row">
-              <button class="btn-edit-note" (click) = "navigateToNote(note.id)">
-                Edit note
-              </button>
-              <div>
-                <button class = "btn-icon">
-                  <fa-icon  [icon]="icons.faThumbTack"></fa-icon>
+<ng-container *ngIf = "notes.length > 0">
+  <ng-container *ngIf = "view == 'grid' ">
+    <div class="list-notes-inner-grid">
+        <div class="note-item-grid" *ngFor = "let note of notes">
+          <div class="note-item-content-grid">
+            <div class="note-item-header-grid">
+              <span>{{note.title}}</span>
+            </div>
+            <div class="note-item-body-grid">
+              <div [innerHTML] = "textMap.get(note.id)"></div>
+            </div>
+
+            <div class="note-item-footer-grid">
+              <div class="note-item-footer-row">
+                <button class="btn-edit-note" (click) = "navigateToNote(note.id)">
+                  Edit note
                 </button>
-                <button class = "btn-icon" (click) = "openDeleteNoteModal(note)">
-                  <fa-icon  [icon]="icons.faTrashCan"></fa-icon>
-                </button>
+                <div>
+                  <button class = "btn-icon animated">
+                    <fa-icon  [icon]="icons.faThumbTack"></fa-icon>
+                  </button>
+                  <button class = "btn-icon animated" (click) = "openDeleteNoteModal(note)">
+                    <fa-icon  [icon]="icons.faTrashCan"></fa-icon>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-
       </div>
+  </ng-container>
 
-    </div>
-  </div>
+  <ng-container *ngIf = "view == 'table'">
+
+    <table class="list-notes-table">
+
+      <thead class = "list-table-header">
+        <th>Name</th>
+        <th>Last Updated</th>
+        <th>Created at</th>
+        <th></th>
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor = "let note of notes">
+            <td (click) = "navigateToNote(note.id)">{{note.title}}</td>
+            <td (click) = "navigateToNote(note.id)">{{_formatDate(note.last_updated)}}</td>
+            <td (click) = "navigateToNote(note.id)">{{formatDate(note.created_at)}}</td>
+            <td>
+              <button class = "btn-icon animated">
+                <fa-icon  [icon]="icons.faThumbTack"></fa-icon>
+              </button>
+              <button class = "btn-icon animated" (click) = "openDeleteNoteModal(note)">
+                <fa-icon  [icon]="icons.faTrashCan"></fa-icon>
+              </button>
+            </td>
+        </tr>
+
+      </tbody>
+
+    </table>
+
+
+  </ng-container>
+
+</ng-container>
+
+
+
+
 
   <div *ngIf = "!notes ||notes.length === 0">
     <div class="no-content">
-      <span>Empty folder <fa-icon  [icon]="icons.faFolderOpen"></fa-icon>
+      <span>No content <fa-icon  [icon]="icons.faFolderOpen"></fa-icon>
       </span>
     </div>
   </div>

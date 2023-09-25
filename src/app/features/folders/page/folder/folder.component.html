@@ -18,8 +18,14 @@
       </button>
     </div>
   </div>
+
+  <app-list-header
+  [view] = "currentView"
+  (selectView)="selectView($event)"
+  ></app-list-header>
+
   <div class = "folders-list">
-    <app-list-notes [notes] = "notes"></app-list-notes>
+    <app-list-notes [notes] = "notes" [view] = "currentView"></app-list-notes>
   </div>
 </section>
 

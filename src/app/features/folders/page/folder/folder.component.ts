@@ -10,14 +10,15 @@ import { Note } from 'src/app/core/types/Note';
 import { v4 } from 'uuid';
 import { Actions, ofType } from '@ngrx/effects';
 import { ListNotesComponent } from 'src/app/shared/components/list-notes/list-notes.component';
-import { faPlus,faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faPlus,faTrashCan,faTable, faGrip } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ConfirmationModalComponent } from 'src/app/core/ui/confirmation-modal/confirmation-modal.component';
+import { ListHeaderComponent } from 'src/app/shared/components/list-header/list-header.component';
 
 @Component({
   selector: 'app-folder',
   standalone: true,
-  imports: [CommonModule,ListNotesComponent,FontAwesomeModule,ConfirmationModalComponent],
+  imports: [CommonModule,ListNotesComponent,FontAwesomeModule,ConfirmationModalComponent,ListHeaderComponent],
   templateUrl: './folder.component.html',
   styleUrls: ['./folder.component.scss'],
 })
@@ -31,9 +32,13 @@ export class FolderComponent implements OnInit{
 
   isModalDeleteFolderOpen : boolean = false;
 
+  currentView : 'grid' | 'table' = 'table';
+
   icons = {
     faPlus,
-    faTrashCan
+    faTrashCan,
+    faTable,
+    faGrip
   }
 
   constructor(
@@ -90,4 +95,10 @@ export class FolderComponent implements OnInit{
     this.store.dispatch(deleteFolder({id: this.folder.id}));
     this.router.navigate(["/"]);
   }
+
+  selectView(op : 'table' | 'grid')
+  {
+    this.currentView = op;
+  }
+
 }

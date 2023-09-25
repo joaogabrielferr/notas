@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faAngleRight,faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { faAngleRight,faAngleDown, faHome } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarDays,faFolderOpen,faFolderClosed, faPlusSquare} from '@fortawesome/free-regular-svg-icons';
 import {Router} from '@angular/router';
 import { Folder } from '../../types/Folder';
@@ -28,7 +28,8 @@ export class SidebarComponent implements OnInit {
     faCalendarDays,
     faFolderOpen,
     faFolderClosed,
-    faPlusSquare
+    faPlusSquare,
+    faHome
   }
 
 
@@ -54,9 +55,10 @@ export class SidebarComponent implements OnInit {
     this.foldersVisible[index] = !this.foldersVisible[index];
   }
 
-  redirectToPage(prefix : string,itemID:string)
+  redirectToPage(prefix : string,itemID?:string)
   {
-    this.router.navigate([prefix,itemID]);
+    if(itemID)this.router.navigate([prefix,itemID]);
+    else this.router.navigate([prefix]);
   }
 
   createFolder(name : string)

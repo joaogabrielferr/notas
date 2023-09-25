@@ -1,0 +1,8 @@
+<div class = "list-header">
+  <button class = "btn-icon" [ngClass]="{'selected' : view == 'table'}" (click) = "_selectView('table')">
+    <fa-icon  [icon]="icons.faTable"></fa-icon>
+  </button>
+  <button class = "btn-icon" [ngClass]="{'selected' : view == 'grid'}" (click) = "_selectView('grid')">
+    <fa-icon  [icon]="icons.faGrip"></fa-icon>
+  </button>
+</div>

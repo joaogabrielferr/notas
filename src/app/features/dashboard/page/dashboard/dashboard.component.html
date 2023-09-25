@@ -4,18 +4,60 @@
       👋 Welcome
     </div>
     <div class="page-header-button">
-      <div class="clock">
-        <div class = "clock-hours">
-          {{currentHour}}:{{currentMinutes}}
-        </div>
-        <div class = "clock-days">
-          {{currentDay}}
-        </div>
-
-      </div>
-
     </div>
   </header>
 
+  <div class = "dashboard-section">
+    <button class="btn-primary" (click) = "toogleAddFolderModal()">
+      <fa-icon [icon]="icons.faPlus"></fa-icon> &nbsp;
+      Create Folder
+    </button>
+  </div>
+
+  <div class="dashboard-section">
+
+    <div class="cards">
+      <div class="count-card"  style = "background-color: rgb(82, 122, 70);">
+        <div class = "count-card-number">
+            {{folders.length}}
+        </div>
+        <div>
+          Folders created
+        </div>
+      </div>
+      <div class="count-card"  style = "background-color: rgb(70, 105, 122);">
+        <div class = "count-card-number">
+            {{notes.length}}
+        </div>
+        <div>
+          Notes created
+        </div>
+      </div>
+      <div class="count-card"  style = "background-color: rgb(122, 80, 70);">
+        <div class = "count-card-number">
+            {{emptyNotesCount}}
+        </div>
+        <div>
+          Empty notes
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <app-list-header
+  [view]="currentView"
+  (selectView)="selectView($event)"
+  ></app-list-header>
+
+  <app-list-notes [notes] = "filteredNotes" [view] = "currentView"></app-list-notes>
+
+
 
 </section>
+
+<app-add-folder-modal *ngIf = "isAddFolderModalOpen"
+(close)="toogleAddFolderModal()"
+(confirm)="createFolder($event)"
+>
+</app-add-folder-modal>
