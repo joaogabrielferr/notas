@@ -80,7 +80,6 @@ export class DashboardComponent implements OnInit {
 
   countEmptyNotes()
   {
-    console.log(this.notes);
     this.emptyNotesCount = 0;
     this.notes.forEach((n)=>{
       if(!n.content.blocks || n.content.blocks.length === 0)

@@ -3,11 +3,13 @@ import { Note } from "../types/Note";
 import { Folder } from "../types/Folder";
 import { Observable, firstValueFrom, of } from "rxjs";
 import { cloneDeep } from "lodash";
+import { welcomeFolder } from "src/app/app.state";
 
 
 
 export interface LocalStorageState{
-  folders : Folder[]
+  folders : Folder[],
+  initialized : boolean
 }
 
 
@@ -22,7 +24,6 @@ export class LocalStorageService{
   async saveFolder(folder : Folder)
   {
     const state : LocalStorageState = await firstValueFrom(this.getState());
-    console.log("state:",state,"folder:",folder);
     state.folders.push(folder);
     this.saveState(state);
   }
@@ -32,7 +33,6 @@ export class LocalStorageService{
     const state : LocalStorageState = await firstValueFrom(this.getState());
     const newState = cloneDeep(state);
     newState.folders = folders;
-    console.log("saving:",newState);
     this.saveState(newState);
   }
 
@@ -102,6 +102,14 @@ export class LocalStorageService{
     {
       state.folders = [];
     }
+
+    if(!state.initialized)
+    {
+      state.initialized = true;
+      state.folders = [welcomeFolder];
+      this.saveState(state);
+    }
+
 
     return of(state);
   }

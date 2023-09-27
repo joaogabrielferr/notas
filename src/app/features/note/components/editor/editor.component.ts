@@ -72,7 +72,6 @@ export class EditorComponent implements OnInit{
     this.note$.subscribe((note)=>{
       this.note = note;
       this.noteTitle = note.title;
-      console.log("TITLE:",note.title);
 
       if(!this.editorInitialized)
       {
@@ -106,9 +105,7 @@ export class EditorComponent implements OnInit{
     });
 
     this.editor.isReady.then(()=>{
-      console.log("editor is ready");
     },(error)=>{
-      console.log("editor couldnt initialized because of " + error);
     })
 
   }
@@ -116,7 +113,6 @@ export class EditorComponent implements OnInit{
   async saveNote()
   {
 
-    console.log("salvando");
 
     const note : Note = await firstValueFrom(this.note$);
 
@@ -145,7 +141,6 @@ export class EditorComponent implements OnInit{
 
   updateTitle(value : string)
   {
-    console.log("updating title",value);
     this.noteTitle = value;
     this.debouncedSaveNote();
   }

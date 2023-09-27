@@ -7,9 +7,6 @@ export function formatDate(_date : Date) {
     'August', 'September', 'October', 'November', 'December'
   ];
 
-  // console.log(date);
-  // console.log(date.getMonth());
-  // return "teste";
 
   const month = months[date.getUTCMonth()];
   const day = date.getDate();

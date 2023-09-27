@@ -26,6 +26,7 @@ type EditorBlock = {
       text?:string;
       level?:number;
       items?:string[];
+      style?:string;
     }
 
 }
