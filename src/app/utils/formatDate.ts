@@ -11,8 +11,11 @@ export function formatDate(_date : Date) {
   const month = months[date.getUTCMonth()];
   const day = date.getDate();
   const year = date.getFullYear();
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
+  let hours = date.getHours().toString();
+  let minutes = date.getMinutes().toString();
+
+  if(hours.length == 1)hours = '0' + hours;
+  if(minutes.length == 1)minutes = '0' + minutes;
 
   const formattedDate = `${month} ${day}, ${year}, ${hours}:${minutes}`;
 

@@ -1,8 +1,24 @@
 <div class = "list-header">
-  <button class = "btn-icon" [ngClass]="{'selected' : view == 'table'}" (click) = "_selectView('table')">
-    <fa-icon  [icon]="icons.faTable"></fa-icon>
-  </button>
-  <button class = "btn-icon" [ngClass]="{'selected' : view == 'grid'}" (click) = "_selectView('grid')">
-    <fa-icon  [icon]="icons.faGrip"></fa-icon>
-  </button>
+
+  <div>
+
+    <select [(ngModel)] = "sortOption" (ngModelChange)="_sortNotes($event)" class = "sort-select">
+      <!-- <option disabled selected>Sort</option> -->
+      <option value="sort" disabled selected>
+        Sort
+      </option>
+      <option  value="asc">By creation order | ASC </option>
+      <option  value="desc">By creation order | DESC</option>
+    </select>
+
+  </div>
+
+  <div>
+    <button class = "btn-icon" [ngClass]="{'selected' : view == 'table'}" (click) = "_selectView('table')">
+      <fa-icon  [icon]="icons.faTable"></fa-icon>
+    </button>
+    <button class = "btn-icon" [ngClass]="{'selected' : view == 'grid'}" (click) = "_selectView('grid')">
+      <fa-icon  [icon]="icons.faGrip"></fa-icon>
+    </button>
+  </div>
 </div>

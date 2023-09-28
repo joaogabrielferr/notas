@@ -5,9 +5,26 @@
   height: 30px;
   margin-top: 50px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 
+.sort-select{
+  width: 200px;
+  height: 30px;
+  color: aliceblue;
+  background-color: #111;
+  border-style:none;
+  border-radius: 5px;
+  font-weight: bold;
+
+  option{
+    border-style: none;
+    font-weight: bold;
+    border-radius: 5px;
+    width: 200px;
+  }
+
+}
 
 .selected{
   background-color: $main-button-color;

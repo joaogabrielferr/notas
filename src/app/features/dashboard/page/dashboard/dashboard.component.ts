@@ -42,6 +42,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(private store : Store, private router : Router){
     this.store.select(selectAllFolders).subscribe((f)=>{
+
       this.folders = f;
       this.getAllNotes();
       this.countEmptyNotes();
@@ -97,6 +98,25 @@ export class DashboardComponent implements OnInit {
   selectView(op : 'table' | 'grid')
   {
     this.currentView = op;
+  }
+
+  filter(op : string)
+  {
+    const newNotes = [...this.filteredNotes];
+
+    newNotes.sort((a : Note,b : Note)=>{
+
+      const date1 = new Date(a.created_at);
+      const date2 = new Date(b.created_at);
+
+      if(date1.getTime() < date2.getTime())return op == 'desc' ? 1 : -1;
+      else if(date1.getTime() > date2.getTime())return op == 'desc' ? -1 : 1;
+      else return 0;
+    });
+
+
+    this.filteredNotes = newNotes;
+
   }
 
 

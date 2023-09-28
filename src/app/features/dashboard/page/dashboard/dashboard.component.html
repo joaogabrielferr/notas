@@ -48,6 +48,7 @@
   <app-list-header
   [view]="currentView"
   (selectView)="selectView($event)"
+  (sortNotes)="filter($event)"
   ></app-list-header>
 
   <app-list-notes [notes] = "filteredNotes" [view] = "currentView"></app-list-notes>

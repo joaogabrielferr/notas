@@ -44,16 +44,6 @@
         </div>
 
 
-      <!-- <div class = "section-title">
-        <span>
-          <fa-icon [icon]="icons.faFolderOpen"></fa-icon>
-          Folders
-        </span>
-        <button class = "btn-icon" (click) = "toogleAddFolderModal()">
-          <fa-icon  [icon]="icons.faPlusSquare"></fa-icon> &nbsp; New Folder
-        </button>
-        </div> -->
-
         <div *ngFor = "let folder of folders$ | async; index as i" class = "sidebar-folders" (click) = "redirectToPage('/folder',folder.id)">
 
           <button class = "btn-sidebar-transparent">

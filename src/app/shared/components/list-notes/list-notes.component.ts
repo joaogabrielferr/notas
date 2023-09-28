@@ -114,7 +114,6 @@ export class ListNotesComponent implements OnInit ,OnChanges {
 
   _formatDate(date : Date)
   {
-    console.log(date);
     return formatDate(date);
   }
 

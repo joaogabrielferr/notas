@@ -22,10 +22,11 @@
   <app-list-header
   [view] = "currentView"
   (selectView)="selectView($event)"
+  (sortNotes)="filter($event)"
   ></app-list-header>
 
   <div class = "folders-list">
-    <app-list-notes [notes] = "notes" [view] = "currentView"></app-list-notes>
+    <app-list-notes [notes] = "filteredNotes" [view] = "currentView"></app-list-notes>
   </div>
 </section>
 

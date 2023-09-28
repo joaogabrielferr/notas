@@ -34,6 +34,10 @@ export class FolderComponent implements OnInit{
 
   currentView : 'grid' | 'table' = 'table';
 
+  filteredNotes : Note[] = [];
+
+  noFiltersApplied : boolean = true;
+
   icons = {
     faPlus,
     faTrashCan,
@@ -68,7 +72,16 @@ export class FolderComponent implements OnInit{
           return;
         }
         this.folder = folder;
+        // console.log(this.folder);
         this.notes = folder.notes;
+
+
+          // console.log("updt filtered notes");
+          this.filteredNotes = this.notes;
+          // this.noFiltersApplied = false;
+
+        // console.log(this.filteredNotes);
+
       },(err)=>{
         this.router.navigate(["/404"]);
       }
@@ -100,5 +113,26 @@ export class FolderComponent implements OnInit{
   {
     this.currentView = op;
   }
+
+
+  filter(op : string)
+  {
+    const newNotes = [...this.filteredNotes];
+
+    newNotes.sort((a : Note,b : Note)=>{
+
+      const date1 = new Date(a.created_at);
+      const date2 = new Date(b.created_at);
+
+      if(date1.getTime() < date2.getTime())return op == 'desc' ? 1 : -1;
+      else if(date1.getTime() > date2.getTime())return op == 'desc' ? -1 : 1;
+      else return 0;
+    });
+
+
+    this.filteredNotes = newNotes;
+
+  }
+
 
 }
