@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Folder } from 'src/app/core/types/Folder';
@@ -23,6 +23,8 @@ import { ListHeaderComponent } from 'src/app/shared/components/list-header/list-
   styleUrls: ['./folder.component.scss'],
 })
 export class FolderComponent implements OnInit{
+
+  @ViewChild("listHeader") listHeader! : ListHeaderComponent;
 
   public folder$! : Observable<Folder>;
   public folder! : Folder;
@@ -72,15 +74,12 @@ export class FolderComponent implements OnInit{
           return;
         }
         this.folder = folder;
-        // console.log(this.folder);
         this.notes = folder.notes;
 
+        this.filteredNotes = this.notes;
 
-          // console.log("updt filtered notes");
-          this.filteredNotes = this.notes;
-          // this.noFiltersApplied = false;
+        this.filter(this.listHeader.sortOption);
 
-        // console.log(this.filteredNotes);
 
       },(err)=>{
         this.router.navigate(["/404"]);
@@ -117,6 +116,7 @@ export class FolderComponent implements OnInit{
 
   filter(op : string)
   {
+    if(op == 'sort')return;
     const newNotes = [...this.filteredNotes];
 
     newNotes.sort((a : Note,b : Note)=>{

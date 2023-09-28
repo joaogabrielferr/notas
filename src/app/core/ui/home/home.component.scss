@@ -26,4 +26,19 @@
 
   }
 
+  header{
+    width: 98%;
+    height: 30px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0 auto;
+
+    fa-icon{
+      cursor: pointer;
+    }
+
+  }
+
+
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faAngleRight,faAngleDown, faHome } from '@fortawesome/free-solid-svg-icons';
@@ -21,6 +21,12 @@ import { AddFolderModalComponent } from '../add-folder-modal/add-folder-modal.co
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
+
+  @Input()
+  mobile! : boolean;
+
+  @Output()
+  toggleSidebar = new EventEmitter<boolean>();
 
   icons = {
     faAngleRight,
@@ -74,6 +80,11 @@ export class SidebarComponent implements OnInit {
   toogleAddFolderModal()
   {
     this.isAddFolderModalOpen = !this.isAddFolderModalOpen;
+  }
+
+  _toggleSidebar()
+  {
+    this.toggleSidebar.emit(true);
   }
 
 

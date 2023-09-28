@@ -1,9 +1,11 @@
 <main class="home">
 
-  <app-sidebar></app-sidebar>
+  <app-sidebar *ngIf = "showSidebar" [mobile] = "mobile" (toggleSidebar) = "toggleSidebar()"></app-sidebar>
 
   <section class="content">
-    <!-- <app-header></app-header> -->
+    <header>
+      <fa-icon  [icon]="icons.faBars" (click) = "toggleSidebar()"></fa-icon>
+    </header>
     <router-outlet></router-outlet>
   </section>
 
