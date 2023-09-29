@@ -81,6 +81,11 @@ export const foldersReducer = createReducer(
 
     newState.folders[folderIndex].notes = newState.folders[folderIndex].notes.filter((n)=>n.id != note.id);
 
+    if(!newState.folders[folderIndex].notes)
+    {
+      newState.folders[folderIndex].notes = [];
+    }
+
     return newState;
 
   })

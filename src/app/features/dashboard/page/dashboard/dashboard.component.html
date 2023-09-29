@@ -46,6 +46,7 @@
   </div>
 
   <app-list-header
+  #listHeader
   [view]="currentView"
   (selectView)="selectView($event)"
   (sortNotes)="filter($event)"

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Folder } from 'src/app/core/types/Folder';
 import { Store } from '@ngrx/store';
@@ -22,13 +22,14 @@ import { ListNotesComponent } from 'src/app/shared/components/list-notes/list-no
 })
 export class DashboardComponent implements OnInit {
 
+  @ViewChild('listHeader')
+  listHeader! : ListHeaderComponent;
+
   folders : Folder[] = [];
 
   notes : Note[] = [];
 
   filteredNotes : Note[] = [];
-
-  noFiltersApplied : boolean = true;
 
   isAddFolderModalOpen : boolean = false;
 
@@ -41,29 +42,29 @@ export class DashboardComponent implements OnInit {
   };
 
   constructor(private store : Store, private router : Router){
+  }
+
+  ngOnInit(): void {
     this.store.select(selectAllFolders).subscribe((f)=>{
 
       this.folders = f;
       this.getAllNotes();
       this.countEmptyNotes();
 
-      if(this.noFiltersApplied)
+      this.filteredNotes = this.notes;
+
+      if(this.listHeader == undefined)
       {
-        this.filteredNotes = this.notes;
-        this.noFiltersApplied = false;
-      }
+        this.filter('sort');
+        console.log("aqui");
+      }else this.filter(this.listHeader.sortOption);
 
     });
-
-  }
-
-  ngOnInit(): void {
-
-
   }
 
   getAllNotes()
   {
+    this.notes = [];
     this.folders.forEach((folder)=>{
       this.notes = this.notes.concat(folder.notes);
     });
@@ -102,6 +103,9 @@ export class DashboardComponent implements OnInit {
 
   filter(op : string)
   {
+
+    if(op == 'sort')return;
+
     const newNotes = [...this.filteredNotes];
 
     newNotes.sort((a : Note,b : Note)=>{

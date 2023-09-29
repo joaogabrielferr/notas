@@ -1,6 +1,6 @@
 
 import { CommonModule } from "@angular/common";
-import { AfterViewInit, Component, OnChanges, OnInit, SimpleChanges } from "@angular/core";
+import { AfterViewInit, Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import EditorJS from '@editorjs/editorjs';
 
@@ -18,7 +18,7 @@ import Quote from "@editorjs/quote";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { Store } from "@ngrx/store";
 import { EditorResponse, Note } from "src/app/core/types/Note";
-import { Observable, firstValueFrom, fromEvent } from "rxjs";
+import { Observable, Subscription, firstValueFrom, fromEvent } from "rxjs";
 import { selectFolderById, selectNoteById } from "src/app/features/folders/state/folders.selectors";
 import { ActivatedRoute, Router } from "@angular/router";
 import { updateNote } from "src/app/features/folders/state/folders.actions";
@@ -32,7 +32,7 @@ import { debounce } from "lodash";
   styleUrls:['./editor.component.scss'],
   imports: [CommonModule,FontAwesomeModule,FormsModule],
 })
-export class EditorComponent implements OnInit{
+export class EditorComponent implements OnInit, OnDestroy{
 
   editor! : EditorJS;
 
@@ -45,6 +45,8 @@ export class EditorComponent implements OnInit{
   id! : string | null;
 
   editorInitialized : boolean = false;
+
+  subscription! : Subscription;
 
   constructor(
     private store : Store,
@@ -69,7 +71,7 @@ export class EditorComponent implements OnInit{
 
   ngOnInit(): void {
 
-    this.note$.subscribe((note)=>{
+    this.subscription = this.note$.subscribe((note)=>{
       this.note = note;
       this.noteTitle = note.title;
 
@@ -81,6 +83,10 @@ export class EditorComponent implements OnInit{
       });
 
 
+  }
+
+  ngOnDestroy(): void {
+      this.subscription.unsubscribe();
   }
 
 

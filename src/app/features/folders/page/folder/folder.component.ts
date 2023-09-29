@@ -78,7 +78,7 @@ export class FolderComponent implements OnInit{
 
         this.filteredNotes = this.notes;
 
-        this.filter(this.listHeader.sortOption);
+        this.filter(this.listHeader.sortOption || 'sort');
 
 
       },(err)=>{
